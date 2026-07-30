@@ -1,6 +1,6 @@
 /* BP-Media service worker. Bump APP_VERSION here and in app.js together. */
 
-const APP_VERSION = '2026.07.30.01';
+const APP_VERSION = '2026.07.30.02';
 const CACHE = 'bp-media-' + APP_VERSION;
 
 const SHELL = [

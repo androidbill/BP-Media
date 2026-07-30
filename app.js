@@ -1,6 +1,6 @@
 /* BP-Media — a launcher for links you choose. */
 
-const APP_VERSION = '2026.07.30.01';
+const APP_VERSION = '2026.07.30.02';
 
 const LINKS_KEY = 'bpmedia.links.v1';
 const PREFS_KEY = 'bpmedia.prefs.v1';
@@ -212,6 +212,82 @@ function move(dir) {
   toast(dir === 'up' ? 'Moved up' : 'Moved down');
 }
 
+/* ---------------- clipboard ---------------- */
+
+// Pulls the first thing that looks like a URL out of copied text, so a
+// copied link still works when it arrives with a title or extra words.
+function urlFromText(text) {
+  if (!text) return null;
+  const direct = normalizeUrl(text);
+  if (direct) return direct;
+  const match = String(text).match(/https?:\/\/[^\s<>"')]+/i);
+  return match ? normalizeUrl(match[0]) : null;
+}
+
+async function readClipboard() {
+  if (!navigator.clipboard || !navigator.clipboard.readText) return null;
+  try {
+    return await navigator.clipboard.readText();
+  } catch {
+    return null; // permission denied, or no user gesture
+  }
+}
+
+// Explicit tap: open the add form with whatever was copied.
+async function pasteAndAdd() {
+  const url = urlFromText(await readClipboard());
+  if (!url) {
+    openEditor(null);
+    toast('Nothing copied — paste into the box');
+    return;
+  }
+  if (links.some((l) => l.url === url)) {
+    toast(hostOf(url) + ' is already on your list');
+    return;
+  }
+  openEditor(null);
+  $('fUrl').value = url;
+  $('fName').value = '';
+  $('fName').focus();
+}
+
+// Paste button inside the add sheet.
+async function pasteIntoField() {
+  const url = urlFromText(await readClipboard());
+  if (url) {
+    $('fUrl').value = url;
+    $('fName').focus();
+  } else {
+    toast('Nothing to paste — long-press the box instead');
+    $('fUrl').focus();
+  }
+}
+
+let dismissedClip = '';
+
+// When the app regains focus, offer whatever link is sitting on the clipboard.
+// Silently does nothing on browsers that block a gesture-less clipboard read.
+async function offerClipboard() {
+  if ($('editDlg').open) return;
+  const text = await readClipboard();
+  const url = urlFromText(text);
+  if (!url || url === dismissedClip) return;
+  if (links.some((l) => l.url === url)) return;
+
+  $('clipText').textContent = 'Add ' + hostOf(url) + '?';
+  $('clipBar').hidden = false;
+  $('clipAdd').onclick = () => {
+    $('clipBar').hidden = true;
+    openEditor(null);
+    $('fUrl').value = url;
+    $('fName').focus();
+  };
+  $('clipDismiss').onclick = () => {
+    dismissedClip = url;
+    $('clipBar').hidden = true;
+  };
+}
+
 /* ---------------- backup ---------------- */
 
 function exportLinks() {
@@ -305,6 +381,8 @@ $('ver').textContent = APP_VERSION;
 $('aboutVer').textContent = APP_VERSION;
 
 $('addBtn').addEventListener('click', () => openEditor(null));
+$('pasteBtn').addEventListener('click', pasteAndAdd);
+$('pasteInto').addEventListener('click', pasteIntoField);
 $('editForm').addEventListener('submit', submitEditor);
 $('cancelBtn').addEventListener('click', () => { $('editDlg').close(); editingId = null; });
 $('deleteBtn').addEventListener('click', deleteCurrent);
@@ -345,6 +423,12 @@ if (shared) {
     $('fName').focus();
   }
 }
+
+// Coming back from another app is the moment a freshly copied link matters.
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) offerClipboard();
+});
+window.addEventListener('focus', offerClipboard);
 
 render();
 

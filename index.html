@@ -43,7 +43,14 @@
 
 <footer class="version">BP-Media v<span id="ver"></span></footer>
 
+<button id="pasteBtn" class="fab fab-secondary" aria-label="Add copied link">&#128203;</button>
 <button id="addBtn" class="fab" aria-label="Add link">+</button>
+
+<div id="clipBar" class="update-bar clip-bar" hidden>
+  <span id="clipText"></span>
+  <button id="clipAdd">Add</button>
+  <button id="clipDismiss" class="clip-x" aria-label="Dismiss">&times;</button>
+</div>
 
 <!-- Add / edit sheet -->
 <dialog id="editDlg" class="sheet">
@@ -51,7 +58,10 @@
     <h2 id="editTitle">Add link</h2>
 
     <label for="fUrl">Web address</label>
-    <input id="fUrl" name="url" type="text" inputmode="url" placeholder="example.com" required>
+    <div class="field-row">
+      <input id="fUrl" name="url" type="text" inputmode="url" placeholder="example.com" required>
+      <button type="button" id="pasteInto" class="ghost paste-btn" title="Paste from clipboard">Paste</button>
+    </div>
 
     <label for="fName">Name <span class="hint">(optional)</span></label>
     <input id="fName" name="name" type="text" placeholder="Leave blank to use the site name">

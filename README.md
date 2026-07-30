@@ -6,6 +6,8 @@ as a grid of tiles you can tap to open.
 ## What it does
 
 - Add any site by typing an address (`example.com` works — no need for `https://`)
+- Paste a copied link: the 📋 button, the **Paste** button in the add form, or the
+  prompt that appears when you switch back to the app with a link on the clipboard
 - Each tile gets an icon: the site's own favicon, or a coloured letter tile
 - Rename, reorder, and remove links from the pencil button on any tile
 - Search appears once you have more than eight links

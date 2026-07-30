@@ -1,19 +1,22 @@
 /* BP-Media service worker. Bump APP_VERSION here and in app.js together. */
 
-const APP_VERSION = '2026.07.30.03';
+const APP_VERSION = '2026.07.30.04';
 const CACHE = 'bp-media-' + APP_VERSION;
 
 const SHELL = [
   './',
   './index.html',
-  './styles.css',
-  './app.js',
+  './styles.css?v=' + APP_VERSION,
+  './app.js?v=' + APP_VERSION,
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];
 
 self.addEventListener('install', (e) => {
+  // Take over right away rather than waiting for every tab to close, so a
+  // broken version can never strand the app on an old worker.
+  self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)));
 });
 

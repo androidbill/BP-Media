@@ -10,7 +10,9 @@
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="stylesheet" href="styles.css">
+<!-- ?v= must match APP_VERSION. A stale service worker caches by URL, so the
+     query string is what forces it to fetch new assets instead of old ones. -->
+<link rel="stylesheet" href="styles.css?v=2026.07.30.04">
 </head>
 <body>
 
@@ -101,6 +103,6 @@
   <button id="updateBtn">Reload</button>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v=2026.07.30.04"></script>
 </body>
 </html>

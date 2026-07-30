@@ -1,6 +1,6 @@
 /* BP-Media — a launcher for links you choose. */
 
-const APP_VERSION = '2026.07.30.03';
+const APP_VERSION = '2026.07.30.04';
 
 const LINKS_KEY = 'bpmedia.links.v1';
 const PREFS_KEY = 'bpmedia.prefs.v1';

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e0b16">
+<title>BP-Media</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1 class="brand">BP<span>-Media</span></h1>
+  <button id="menuBtn" class="icon-btn" aria-label="Menu" aria-haspopup="true" aria-expanded="false">&#8942;</button>
+  <div id="menu" class="menu" hidden role="menu">
+    <button role="menuitem" data-act="refresh">Refresh</button>
+    <button role="menuitem" data-act="share">Share app</button>
+    <button role="menuitem" data-act="icons">Site icons: on</button>
+    <button role="menuitem" data-act="export">Export links</button>
+    <button role="menuitem" data-act="import">Import links</button>
+    <button role="menuitem" data-act="about">About</button>
+  </div>
+</header>
+
+<div id="searchWrap" class="search-wrap" hidden>
+  <input id="search" type="search" placeholder="Search your links" autocomplete="off">
+</div>
+
+<main>
+  <div id="grid" class="grid"></div>
+
+  <div id="empty" class="empty" hidden>
+    <div class="empty-mark">&#9733;</div>
+    <h2>No links yet</h2>
+    <p>Tap the&nbsp;+ button to add any site you want quick access to.</p>
+  </div>
+</main>
+
+<footer class="version">BP-Media v<span id="ver"></span></footer>
+
+<button id="addBtn" class="fab" aria-label="Add link">+</button>
+
+<!-- Add / edit sheet -->
+<dialog id="editDlg" class="sheet">
+  <form method="dialog" id="editForm">
+    <h2 id="editTitle">Add link</h2>
+
+    <label for="fUrl">Web address</label>
+    <input id="fUrl" name="url" type="text" inputmode="url" placeholder="example.com" required>
+
+    <label for="fName">Name <span class="hint">(optional)</span></label>
+    <input id="fName" name="name" type="text" placeholder="Leave blank to use the site name">
+
+    <div id="moveRow" class="move-row" hidden>
+      <button type="button" class="ghost" data-move="up">&#8593; Move up</button>
+      <button type="button" class="ghost" data-move="down">&#8595; Move down</button>
+    </div>
+
+    <div class="sheet-actions">
+      <button type="button" id="deleteBtn" class="danger" hidden>Delete</button>
+      <span class="spacer"></span>
+      <button type="button" id="cancelBtn" class="ghost">Cancel</button>
+      <button type="submit" id="saveBtn" class="primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- About -->
+<dialog id="aboutDlg" class="sheet">
+  <h2>About BP-Media</h2>
+  <p>Your own launcher. Add any site you want, give it a tile, tap to go.</p>
+  <p>Links are stored on this device only &mdash; nothing is uploaded anywhere. Use <b>Export links</b> to keep a backup.</p>
+  <p class="muted">Version <span id="aboutVer"></span></p>
+  <div class="sheet-actions">
+    <span class="spacer"></span>
+    <button class="primary" onclick="document.getElementById('aboutDlg').close()">Close</button>
+  </div>
+</dialog>
+
+<input id="importFile" type="file" accept="application/json,.json" hidden>
+
+<div id="toast" class="toast" hidden></div>
+
+<div id="updateBar" class="update-bar" hidden>
+  <span>A new version is available.</span>
+  <button id="updateBtn">Reload</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

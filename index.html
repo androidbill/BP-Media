@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f0f13" />
+  <meta name="description" content="BP-Media — Quick access to FMHY starred streaming sites" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BP-Media" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <title>BP-Media</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="version-bar" id="versionBar">2026.07.31.05</div>
+
+    <header class="header">
+      <div class="logo">
+        <span class="star">⭐</span>
+        <h1>BP-Media</h1>
+      </div>
+      <div class="header-actions">
+        <button id="menuBtn" class="btn-icon" title="Menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="5" r="1.8"/>
+            <circle cx="12" cy="12" r="1.8"/>
+            <circle cx="12" cy="19" r="1.8"/>
+          </svg>
+        </button>
+        <div id="menuDropdown" class="menu-dropdown" hidden>
+          <button class="menu-item" data-action="refresh">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 4v6h-6M1 20v-6h6"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
+            Refresh
+          </button>
+          <button class="menu-item" data-action="share">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+              <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>
+            </svg>
+            Share
+          </button>
+          <button class="menu-item" data-action="themes">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            Themes
+          </button>
+          <button class="menu-item" data-action="about">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+            </svg>
+            About
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div id="status" class="status">Loading starred sites…</div>
+      <div id="list" class="list"></div>
+    </main>
+
+    <footer class="footer">
+      <p>Data from <a href="https://fmhy.net/video" target="_blank" rel="noopener">FMHY</a> · Stream Aggregators · Live Sports · Live TV</p>
+    </footer>
+  </div>
+
+  <!-- About modal -->
+  <div id="aboutModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <img src="icon-192.png" alt="BP-Media" class="about-icon" width="72" height="72" />
+      <h2 class="about-name">BP-Media</h2>
+      <p class="about-version" id="aboutVersion">2026.07.31.05</p>
+      <p class="about-desc">Starred streaming sites from FMHY</p>
+      <button class="btn-primary" data-close>Close</button>
+    </div>
+  </div>
+
+  <!-- Themes modal -->
+  <div id="themesModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close-themes></div>
+    <div class="modal-card themes-card">
+      <h2 class="about-name">Themes</h2>
+      <p class="about-desc">Choose a color theme</p>
+      <div id="themeGrid" class="theme-grid"></div>
+      <button class="btn-primary" data-close-themes>Done</button>
+    </div>
+  </div>
+
+
+  <!-- Update prompt -->
+  <div id="updateBanner" class="update-banner" hidden>
+    <span>A new version is available</span>
+    <button id="updateBtn" class="btn-primary btn-sm">Refresh</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

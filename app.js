@@ -1,9 +1,9 @@
 /* ── Version ─────────────────────────────────────────────── */
-const APP_VERSION = '2026.07.31.06';
+const APP_VERSION = '2026.07.31.08';
 const VERSION_KEY = 'bp-media-installed-version';
 
 const SOURCE_URL = 'https://raw.githubusercontent.com/fmhy/edit/main/docs/video.md';
-const CACHE_KEY = 'bp-media-sites-v6';
+const CACHE_KEY = 'bp-media-sites-v8';
 const CACHE_TTL = 1000 * 60 * 30; // 30 minutes
 
 const ALLOWED_SECTIONS = [
@@ -170,28 +170,45 @@ menuDropdown.addEventListener('click', (e) => {
   }
 });
 
-/* ── Share ───────────────────────────────────────────────── */
+/* ── Share the app (canonical install link) ──────────────── */
+const APP_SHARE_URL = 'https://androidbill.github.io/bpmedia/';
+
 async function shareApp() {
-  const shareData = {
-    title: 'BP-Media',
-    text: 'Starred streaming sites from FMHY — Stream Aggregators, Live Sports & Live TV',
-    url: location.href
-  };
+  const title = 'BP-Media';
+  const text = 'Get the BP-Media app — starred streaming sites (Stream Aggregators, Live Sports & Live TV)';
+  const url = APP_SHARE_URL;
+
+  // Native share sheet — shares the app link, not the current page
   if (navigator.share) {
-    try {
-      await navigator.share(shareData);
-    } catch (_) { /* user cancelled */ }
-  } else if (navigator.clipboard) {
-    try {
-      await navigator.clipboard.writeText(location.href);
-      setStatus('Link copied to clipboard');
-      setTimeout(() => setStatus(''), 2000);
-    } catch (_) {
-      setStatus('Sharing not supported on this device', true);
+    const payloads = [
+      { title, text, url },
+      { title, url },
+      { text: text + '\n' + url },
+      { url }
+    ];
+    for (const data of payloads) {
+      try {
+        if (navigator.canShare && !navigator.canShare(data)) continue;
+        await navigator.share(data);
+        return;
+      } catch (err) {
+        if (err && (err.name === 'AbortError' || err.name === 'NotAllowedError')) return;
+      }
     }
-  } else {
-    setStatus('Sharing not supported on this device', true);
   }
+
+  // Fallback: copy app link
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(url);
+      setStatus('App link copied to clipboard');
+      setTimeout(() => setStatus(''), 2000);
+      return;
+    }
+  } catch (_) {}
+
+  setStatus('Sharing not supported on this device', true);
+  setTimeout(() => setStatus(''), 2500);
 }
 
 /* ── About modal ─────────────────────────────────────────── */

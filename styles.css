@@ -60,7 +60,7 @@ body {
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: rgba(15, 15, 19, 0.92);
+  background: var(--bg);
   backdrop-filter: blur(12px);
   z-index: 20;
 }
@@ -400,62 +400,73 @@ body {
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-/* ── Theme variants ──────────────────────────────────────── */
+/* ── Theme variants (stronger colored backgrounds) ───────── */
 [data-theme="midnight"] {
-  --bg: #0f0f13; --surface: #1a1a22; --surface-hover: #24242e;
-  --border: #2a2a36; --text: #e8e8ed; --text-muted: #8b8b9a;
-  --accent: #f5c518; --accent-dim: rgba(245, 197, 24, 0.15);
+  --bg: #0f0f13; --surface: #1a1a22; --surface-hover: #2a2a36;
+  --border: #3a3a48; --text: #f0f0f5; --text-muted: #9a9aac;
+  --accent: #f5c518; --accent-dim: rgba(245, 197, 24, 0.22);
+  --picker-btn: #2a2a38; --picker-btn-text: #f0f0f5;
 }
 [data-theme="crimson-pulse"] {
-  --bg: #140a0c; --surface: #221014; --surface-hover: #2e161c;
-  --border: #3d1e26; --text: #f5e8ea; --text-muted: #a88a90;
-  --accent: #e8354a; --accent-dim: rgba(232, 53, 74, 0.18);
+  --bg: #2a0a10; --surface: #3d1218; --surface-hover: #521820;
+  --border: #6b2430; --text: #ffe8ec; --text-muted: #d0909a;
+  --accent: #ff3b54; --accent-dim: rgba(255, 59, 84, 0.25);
+  --picker-btn: #5c1a24; --picker-btn-text: #ffe8ec;
 }
 [data-theme="gold-rush"] {
-  --bg: #12100a; --surface: #1e1a10; --surface-hover: #2a2416;
-  --border: #3a3220; --text: #f5f0e0; --text-muted: #a89e7a;
-  --accent: #f0b429; --accent-dim: rgba(240, 180, 41, 0.18);
+  --bg: #1f1808; --surface: #2e2410; --surface-hover: #3d3018;
+  --border: #5c4820; --text: #fff8e0; --text-muted: #c8b070;
+  --accent: #ffc107; --accent-dim: rgba(255, 193, 7, 0.25);
+  --picker-btn: #4a3a14; --picker-btn-text: #fff8e0;
 }
 [data-theme="ocean-depth"] {
-  --bg: #0a1016; --surface: #101820; --surface-hover: #162230;
-  --border: #1e3040; --text: #e0eef5; --text-muted: #7a9aab;
-  --accent: #2eb8e6; --accent-dim: rgba(46, 184, 230, 0.18);
+  --bg: #061828; --surface: #0c2438; --surface-hover: #123048;
+  --border: #1a4868; --text: #e0f4ff; --text-muted: #70b0d0;
+  --accent: #29b6f6; --accent-dim: rgba(41, 182, 246, 0.25);
+  --picker-btn: #143a58; --picker-btn-text: #e0f4ff;
 }
 [data-theme="forest-night"] {
-  --bg: #0a120e; --surface: #101c16; --surface-hover: #16281e;
-  --border: #1e3428; --text: #e0f5e8; --text-muted: #7aab8e;
-  --accent: #3dcc6e; --accent-dim: rgba(61, 204, 110, 0.18);
+  --bg: #061a0e; --surface: #0c2818; --surface-hover: #123820;
+  --border: #1a5030; --text: #e0ffe8; --text-muted: #70c890;
+  --accent: #2ecc71; --accent-dim: rgba(46, 204, 113, 0.25);
+  --picker-btn: #144828; --picker-btn-text: #e0ffe8;
 }
 [data-theme="violet-haze"] {
-  --bg: #100e16; --surface: #181420; --surface-hover: #221c2e;
-  --border: #2e2640; --text: #eee8f5; --text-muted: #9a8ab0;
-  --accent: #a855f7; --accent-dim: rgba(168, 85, 247, 0.18);
+  --bg: #160a28; --surface: #241438; --surface-hover: #321e4c;
+  --border: #4a2e70; --text: #f0e8ff; --text-muted: #b090d8;
+  --accent: #b56bff; --accent-dim: rgba(181, 107, 255, 0.25);
+  --picker-btn: #3a1e5c; --picker-btn-text: #f0e8ff;
 }
 [data-theme="ember-glow"] {
-  --bg: #140e0a; --surface: #221810; --surface-hover: #2e2016;
-  --border: #3d2c1e; --text: #f5ebe0; --text-muted: #a8907a;
-  --accent: #f97316; --accent-dim: rgba(249, 115, 22, 0.18);
+  --bg: #1f1006; --surface: #302014; --surface-hover: #40301c;
+  --border: #5c4028; --text: #fff0e0; --text-muted: #d0a070;
+  --accent: #ff7a1a; --accent-dim: rgba(255, 122, 26, 0.25);
+  --picker-btn: #4a2810; --picker-btn-text: #fff0e0;
 }
 [data-theme="arctic-frost"] {
-  --bg: #0a1014; --surface: #10181e; --surface-hover: #162228;
-  --border: #1e3038; --text: #e0f0f5; --text-muted: #7a9aab;
-  --accent: #67e8f9; --accent-dim: rgba(103, 232, 249, 0.18);
+  --bg: #061820; --surface: #0c2830; --surface-hover: #123840;
+  --border: #1a5060; --text: #e0f8ff; --text-muted: #70c0d8;
+  --accent: #4dd0e1; --accent-dim: rgba(77, 208, 225, 0.25);
+  --picker-btn: #143a48; --picker-btn-text: #e0f8ff;
 }
 [data-theme="rose-quartz"] {
-  --bg: #140a12; --surface: #22141e; --surface-hover: #2e1c28;
-  --border: #3d2636; --text: #f5e8f0; --text-muted: #a88a9e;
-  --accent: #f472b6; --accent-dim: rgba(244, 114, 182, 0.18);
+  --bg: #1f0a18; --surface: #301424; --surface-hover: #401e32;
+  --border: #5c2e48; --text: #ffe8f4; --text-muted: #d090b0;
+  --accent: #ff6bb5; --accent-dim: rgba(255, 107, 181, 0.25);
+  --picker-btn: #4a1838; --picker-btn-text: #ffe8f4;
 }
 [data-theme="slate-steel"] {
-  --bg: #0e1014; --surface: #161a20; --surface-hover: #1e2430;
-  --border: #2a3240; --text: #e4e8ed; --text-muted: #8490a0;
-  --accent: #94a3b8; --accent-dim: rgba(148, 163, 184, 0.18);
+  --bg: #12161c; --surface: #1c2430; --surface-hover: #283040;
+  --border: #3a4860; --text: #e8eef5; --text-muted: #90a0b8;
+  --accent: #a0b4c8; --accent-dim: rgba(160, 180, 200, 0.25);
+  --picker-btn: #2a3448; --picker-btn-text: #e8eef5;
 }
 
-/* Theme picker grid */
+/* Theme picker grid — brighter buttons on themed background */
 .themes-card {
   max-width: 340px;
   padding: 28px 20px 20px;
+  background: var(--surface);
 }
 
 .theme-grid {
@@ -469,20 +480,23 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
-  background: var(--surface);
-  border: 2px solid var(--border);
+  padding: 11px 12px;
+  background: var(--picker-btn);
+  border: 2px solid transparent;
   border-radius: 10px;
   cursor: pointer;
-  transition: border-color 0.15s, transform 0.1s;
+  transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s, filter 0.15s;
   text-align: left;
-  color: var(--text);
+  color: var(--picker-btn-text);
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  filter: brightness(1.15);
 }
 
 .theme-option:hover {
   border-color: var(--accent);
+  filter: brightness(1.3);
 }
 
 .theme-option:active {
@@ -491,7 +505,8 @@ body {
 
 .theme-option.active {
   border-color: var(--accent);
-  background: var(--accent-dim);
+  box-shadow: 0 0 0 2px var(--accent-dim), 0 2px 12px rgba(0,0,0,0.3);
+  filter: brightness(1.35);
 }
 
 .theme-swatch {
@@ -499,5 +514,6 @@ body {
   height: 22px;
   border-radius: 6px;
   flex-shrink: 0;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.35);
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
 }

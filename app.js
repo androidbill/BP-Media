@@ -1,9 +1,9 @@
 /* ── Version ─────────────────────────────────────────────── */
-const APP_VERSION = '2026.07.31.05';
+const APP_VERSION = '2026.07.31.06';
 const VERSION_KEY = 'bp-media-installed-version';
 
 const SOURCE_URL = 'https://raw.githubusercontent.com/fmhy/edit/main/docs/video.md';
-const CACHE_KEY = 'bp-media-sites-v5';
+const CACHE_KEY = 'bp-media-sites-v6';
 const CACHE_TTL = 1000 * 60 * 30; // 30 minutes
 
 const ALLOWED_SECTIONS = [

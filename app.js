@@ -1,9 +1,9 @@
 /* ── Version ─────────────────────────────────────────────── */
-const APP_VERSION = '2026.07.31.08';
+const APP_VERSION = '2026.07.31.09';
 const VERSION_KEY = 'bp-media-installed-version';
 
 const SOURCE_URL = 'https://raw.githubusercontent.com/fmhy/edit/main/docs/video.md';
-const CACHE_KEY = 'bp-media-sites-v8';
+const CACHE_KEY = 'bp-media-sites-v9';
 const CACHE_TTL = 1000 * 60 * 30; // 30 minutes
 
 const ALLOWED_SECTIONS = [
@@ -170,39 +170,39 @@ menuDropdown.addEventListener('click', (e) => {
   }
 });
 
-/* ── Share the app (canonical install link) ──────────────── */
+/* ── Share as text (messaging apps: WhatsApp, Messages, etc.) ─ */
 const APP_SHARE_URL = 'https://androidbill.github.io/bpmedia/';
 
 async function shareApp() {
-  const title = 'BP-Media';
-  const text = 'Get the BP-Media app — starred streaming sites (Stream Aggregators, Live Sports & Live TV)';
-  const url = APP_SHARE_URL;
+  // Plain text only (no title/url fields) so the OS share sheet
+  // prioritizes communication apps instead of browsers/files/Drive.
+  const message =
+    'Check out the BP-Media app — starred streaming sites (Stream Aggregators, Live Sports & Live TV)\n' +
+    APP_SHARE_URL;
 
-  // Native share sheet — shares the app link, not the current page
   if (navigator.share) {
-    const payloads = [
-      { title, text, url },
-      { title, url },
-      { text: text + '\n' + url },
-      { url }
-    ];
-    for (const data of payloads) {
+    try {
+      // text-only payload → Messages, WhatsApp, Messenger, Telegram, SMS, email
+      await navigator.share({ text: message });
+      return;
+    } catch (err) {
+      if (err && (err.name === 'AbortError' || err.name === 'NotAllowedError')) return;
+      // Some devices still want a title; retry with title + text (still no url field)
       try {
-        if (navigator.canShare && !navigator.canShare(data)) continue;
-        await navigator.share(data);
+        await navigator.share({ title: 'BP-Media', text: message });
         return;
-      } catch (err) {
-        if (err && (err.name === 'AbortError' || err.name === 'NotAllowedError')) return;
+      } catch (err2) {
+        if (err2 && (err2.name === 'AbortError' || err2.name === 'NotAllowedError')) return;
       }
     }
   }
 
-  // Fallback: copy app link
+  // Fallback: copy message
   try {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      await navigator.clipboard.writeText(url);
-      setStatus('App link copied to clipboard');
-      setTimeout(() => setStatus(''), 2000);
+      await navigator.clipboard.writeText(message);
+      setStatus('Message copied — paste it in WhatsApp, Messages, etc.');
+      setTimeout(() => setStatus(''), 3000);
       return;
     }
   } catch (_) {}
